@@ -13,9 +13,16 @@ rm(list = ls(all = TRUE)) #Remove Workspace
 #==============================================================================#
 # Libraries ----
 #==============================================================================#
-if (!require("pacman")) install.packages("pacman")
-pacman::p_load("usethis", "GEOquery", "gcrma", "affy", "mouse4302.db", 
-               "Biobase", "WGCNA")
+# if (!require("pacman")) install.packages("pacman")
+# pacman::p_load("usethis", "GEOquery", "gcrma", "affy", "mouse4302.db", 
+#                "Biobase", "WGCNA")
+library(GEOquery)
+library(gcrma)
+library(affy)
+library(gcrma)
+library(mouse4302.db)
+library(Biobase)
+library(WGCNA)
 
 #==============================================================================#
 # Section ----

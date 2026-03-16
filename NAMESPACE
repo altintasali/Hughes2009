@@ -2,9 +2,13 @@
 
 export(collapse_eset)
 export(filter_mas5)
+export(plot_boxplots)
+export(plot_densities)
 import(Biobase)
 import(WGCNA)
 import(ggplot2)
+import(limma)
 importFrom(WGCNA,collapseRows)
 importFrom(reshape2,melt)
+importFrom(rlang,.data)
 importFrom(stats,setNames)

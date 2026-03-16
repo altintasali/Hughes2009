@@ -1,0 +1,45 @@
+---
+output: github_document
+---
+
+# Hughes2009: Circadian Liver Transcriptome
+
+[![Documentation](https://img.shields.io/badge/docs-pkgdown-blue.svg)](https://altintasali.github.io/Hughes2009/)
+
+The `Hughes2009` package provides processed liver transcriptome data from the Hughes et al. (2009) study on circadian rhythms. It contains normalized expression data and gene-level summaries, designed for testing circadian analysis workflows and co-expression network construction.
+
+# Installation
+
+You can install the development version of `Hughes2009` from GitHub:
+
+```{r install, eval=FALSE}
+install.packages("devtools")
+devtools::install_github("altintasali/Hughes2009")
+```
+
+# Quick Start
+
+This package provides an `ExpressionSet` object containing mouse liver microarray data across a 48-hour period.
+
+```{r start, message=FALSE}
+library(Hughes2009)
+library(Biobase)
+```
+
+```{r data}
+# Load the dataset
+data(eset)
+
+# Peek at the data
+show(eset)
+```
+
+# Vignettes
+
+```{r vig, eval=FALSE}
+# View the vignette
+browseVignettes("Hughes2009")
+```
+
+# Full Documentation
+[Read the full documentation and tutorials online](https://altintasali.github.io/Hughes2009/)

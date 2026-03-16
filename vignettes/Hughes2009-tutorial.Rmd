@@ -1,6 +1,10 @@
 ---
 title: "Hughes2009: Tutorial and Data Processing"
-output: rmarkdown::html_vignette
+output: 
+  rmarkdown::html_document:
+    toc: true
+    toc_float: true
+    toc_depth: 2
 vignette: >
   %\VignetteIndexEntry{Hughes2009: Tutorial and Data Processing}
   %\VignetteEngine{knitr::rmarkdown}
@@ -13,6 +17,8 @@ knitr::opts_chunk$set(
   comment = "#>",
   fig.width = 7,
   fig.height = 5,
+  dpi = 300,              
+  dev = "png",            
   warning = FALSE,
   message = FALSE
 )
@@ -24,38 +30,64 @@ library(ggplot2)
 library(limma)
 ```
 
+
+
+
+
 # Installation
-```{r install}
-# if (!require("pacman")) install.packages("pacman")
-# pacman::p_load("devtools")
-# devtools::install_github("altintasali/Hughes2009")
+```{r install, eval=FALSE}
+# Install via devtools
+if (!requireNamespace("devtools", quietly = TRUE)) install.packages("devtools")
+devtools::install_github("altintasali/Hughes2009")
 ```
 
-# Quality Control (QC)
+# Raw Expression Data
 
-First, we load the raw eset object and perform initial quality checks to ensure data integrity.
+First, we load the raw `eset` object and perform initial quality checks to ensure data integrity.
 
-## Boxplots and Density Plots
+```{r raw}
+show(eset)
+```
+Here is how the expression matrix look like: 
+
+```{r raw2}
+expression_matrix_raw <- exprs(eset)
+print(expression_matrix_raw[1:6, 1:6])
+```
+
+## Boxplots 
 
 Visualizing expression distributions helps identify outliers or normalization issues.
-```{r qc1}
-data(eset)
 
-# Boxplot of sample distributions
-boxplot(exprs(eset), main="Sample Expression Distributions")
-
-# Density plot
-plot(density(exprs(eset)), main="Density of Normalized Data", 
-     xlab="Expression Intensity", col="darkred")
+```{r boxplot_1}
+plot_boxplots(eset)
 ```
 
-```{r qc2}
-limma::plotMD(exprs(eset),column = 1)
+## Density Plots
+
+Visualizing all 96 samples overlaid helps ensure there are no massive outliers or batch effects in the normalization.
+
+```{r density_1}
+plot_densities(eset)
 ```
+
+## MD Plots
+
+In the [`limma`](https://www.rdocumentation.org/packages/limma/versions/3.22.7) R package, an MD plot (Mean-Difference plot) is a specific type of MA plot used to visualize gene expression data. Its primary role in Quality Control (QC) is to identify systematic biases and assess the effectiveness of normalization. 
+
+Below is the MD plot for the first sample: 
+
+```{r md_1}
+limma::plotMD(exprs(eset), column = 1)
+```
+
+
+
+
 
 # Filtering
 
-Probes with low expression or inconsistent signal (MAS5 "Absent" calls) can introduce noise. We filter the dataset to retain only high-quality, reliable probes.
+Probes with low expression or inconsistent signal ([`MAS5`](https://www.rdocumentation.org/packages/affy/versions/1.44.0/topics/mas5calls) "Absent" calls) can introduce noise. We filter the dataset to retain only high-quality, reliable probes. You can play around with `min_present` parameter below to find the optimum filtering option. 
 
 ```{r filtering}
 # Filter for probes present in at least 20 samples
@@ -65,14 +97,57 @@ cat(sprintf("Original number of probes: %d\n", nrow(eset)))
 cat(sprintf("Probes remaining after filtering: %d\n", nrow(eset_filt)))
 ```
 
+It is also a good practice to run QC diagnostics after filtering.
+
+## Box Plots
+
+```{r boxplot_2}
+plot_boxplots(eset_filt)
+```
+
+## Density Plots
+
+```{r density_2}
+plot_densities(eset_filt)
+```
+
+## MD Plots
+
+```{r md_2}
+limma::plotMD(exprs(eset_filt), column = 1)
+```
+
+
+
+
+
 # Collapsing by Gene Name
 
-Since multiple probes may target the same gene, we collapse the probe-level data to the gene level using the WGCNA collapseRows function (MaxMean method).
+Since multiple probes may target the same gene, we collapse the probe-level data to the gene level using the [`WGCNA`'s](https://www.rdocumentation.org/packages/WGCNA/versions/0.94) [`collapseRows`](https://www.rdocumentation.org/packages/WGCNA/versions/0.94/topics/collapseRows) function (`MaxMean` method).
 
 ```{r collapse_rows}
-# Collapse probes to unique gene symbols
 eset_gene <- collapse_eset(eset_filt, method = "MaxMean")
 
-# Inspect the final object
-show(eset_gene)
+expression_matrix_gene <- exprs(eset_gene)
+print(expression_matrix_gene[1:6, 1:6])
 ```
+
+## Box Plots
+
+```{r boxplot_3}
+plot_boxplots(eset_gene)
+```
+
+## Density Plots
+
+```{r density_3}
+plot_densities(eset_gene)
+```
+
+## MD Plots
+
+```{r md_3}
+limma::plotMD(exprs(eset_gene), column = 1)
+```
+
+The final `eset_gene` object is now ready for downstream analysis, such as differential expression testing with [`limma`](https://www.rdocumentation.org/packages/limma/versions/3.22.7) or gene co-expression network construction with [`WGCNA`](https://www.rdocumentation.org/packages/WGCNA/versions/0.94).

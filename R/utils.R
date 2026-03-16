@@ -1,4 +1,5 @@
 #' @import Biobase
+#' @import limma
 #' @import WGCNA
 #' @import ggplot2
 #' @importFrom reshape2 melt
@@ -59,4 +60,43 @@ collapse_eset <- function(eset, method = "MaxMean") {
   message(sprintf("Collapsed %d probes into %d unique genes.", 
                   nrow(datExpr), nrow(res$datETcollapsed)))
   return(new_eset)
+}
+
+#' Plot Overlaid Density for all samples
+#' @param eset An ExpressionSet object.
+#' @param title Plot title.
+#' @export
+#' @import ggplot2
+#' @importFrom reshape2 melt
+#' @importFrom rlang .data
+#' @import Biobase
+plot_densities <- function(eset, title = "Sample Density Distributions") {
+  dat <- exprs(eset)
+  df <- reshape2::melt(dat)
+  colnames(df) <- c("Probe", "Sample", "Intensity")
+  
+  ggplot(df, aes(x = .data$Intensity, group = .data$Sample)) +
+    geom_density(alpha = 0.2) +
+    theme_minimal() +
+    labs(title = title, x = "Log2 Expression Intensity", y = "Density")
+}
+
+#' Plot Overlaid Boxplots for all samples
+#' @param eset An ExpressionSet object.
+#' @param title Plot title.
+#' @export
+#' @import ggplot2
+#' @importFrom reshape2 melt
+#' @importFrom rlang .data
+#' @import Biobase
+plot_boxplots <- function(eset, title = "Sample Expression Distribution") {
+  dat <- exprs(eset)
+  df <- reshape2::melt(dat)
+  colnames(df) <- c("Probe", "Sample", "Intensity")
+  
+  ggplot(df, aes(x = .data$Sample, y = .data$Intensity)) +
+    geom_boxplot(alpha = 0.7, outlier.size = 0.5) +
+    theme_minimal() +
+    theme(axis.text.x = element_text(angle = 90, hjust = 1, size = 6)) +
+    labs(title = title, x = "Sample", y = "Log2 Expression Intensity")
 }
