@@ -26,9 +26,9 @@ library(limma)
 
 # Installation
 ```{r install}
-if (!require("pacman")) install.packages("pacman")
-pacman::p_load("devtools")
-devtools::install_github("your-username/Hughes2009")
+# if (!require("pacman")) install.packages("pacman")
+# pacman::p_load("devtools")
+# devtools::install_github("altintasali/Hughes2009")
 ```
 
 # Quality Control (QC)
