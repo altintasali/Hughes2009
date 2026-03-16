@@ -13,8 +13,8 @@ The `Hughes2009` package provides processed liver transcriptome data from the Hu
 You can install the development version of `Hughes2009` from GitHub:
 
 ```{r install, eval=FALSE}
-install.packages("devtools")
-devtools::install_github("altintasali/Hughes2009")
+install.packages("pak")
+pak::pak("altintasali/Hughes2009")
 ```
 
 # Quick Start
