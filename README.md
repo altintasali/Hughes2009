@@ -1,7 +1,11 @@
 
 # Hughes2009: Circadian Liver Transcriptome
 
+<!-- badges: start -->
+
 [![Documentation](https://img.shields.io/badge/docs-pkgdown-blue.svg)](https://altintasali.github.io/Hughes2009/)
+[![R-CMD-check](https://github.com/altintasali/Hughes2009/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/altintasali/Hughes2009/actions/workflows/R-CMD-check.yaml)
+<!-- badges: end -->
 
 The `Hughes2009` package provides processed liver transcriptome data
 from the Hughes et al. (2009) study on circadian rhythms. It contains
@@ -14,8 +18,8 @@ construction.
 You can install the development version of `Hughes2009` from GitHub:
 
 ``` r
-install.packages("devtools")
-devtools::install_github("altintasali/Hughes2009")
+install.packages("pak")
+pak::pak("altintasali/Hughes2009")
 ```
 
 # Quick Start
@@ -56,12 +60,58 @@ show(eset)
     ## experimentData: use 'experimentData(object)'
     ## Annotation: mouse4302
 
-# Vignettes
+``` r
+# Extract expression matrix
+expression_matrix <- exprs(eset)
+
+# Print first 6 rows and columns
+print(expression_matrix[1:6, 1:6])
+```
+
+    ##              GSM301348.CEL.gz GSM301349.CEL.gz GSM301350.CEL.gz
+    ## 1415670_at          10.047478        10.144396        10.032522
+    ## 1415671_at          10.742481        10.572902        10.678695
+    ## 1415672_at          11.134648        11.113839        11.060911
+    ## 1415673_at           8.123238         8.375692         8.467279
+    ## 1415674_a_at         8.814808         8.788226         8.699853
+    ## 1415675_at           7.563833         7.303640         7.322527
+    ##              GSM301351.CEL.gz GSM301352.CEL.gz GSM301353.CEL.gz
+    ## 1415670_at           9.804604         9.990287         9.682311
+    ## 1415671_at          10.648379        10.714002        10.591531
+    ## 1415672_at          11.280906        11.074163        11.186339
+    ## 1415673_at           8.129796         8.236522         8.042468
+    ## 1415674_a_at         8.768019         8.587714         8.366756
+    ## 1415675_at           7.430643         7.668505         7.474612
 
 ``` r
-# View the vignette
-browseVignettes("Hughes2009")
+# Extract metadata
+meta <- pData(eset)
+
+# Print first 6 rows and columns
+print(meta[1:6, 1:6])
 ```
+
+    ##                                  title geo_accession                status
+    ## GSM301348 Circadian time 18 Liver_CT18     GSM301348 Public on Oct 03 2008
+    ## GSM301349 Circadian time 19 Liver_CT19     GSM301349 Public on Oct 03 2008
+    ## GSM301350 Circadian time 20 Liver_CT20     GSM301350 Public on Oct 03 2008
+    ## GSM301351 Circadian time 21 Liver_CT21     GSM301351 Public on Oct 03 2008
+    ## GSM301352 Circadian time 22 Liver_CT22     GSM301352 Public on Oct 03 2008
+    ## GSM301353 Circadian time 23 Liver_CT23     GSM301353 Public on Oct 03 2008
+    ##           submission_date last_update_date type
+    ## GSM301348     Jun 27 2008      Aug 28 2018  RNA
+    ## GSM301349     Jun 27 2008      Aug 28 2018  RNA
+    ## GSM301350     Jun 27 2008      Aug 28 2018  RNA
+    ## GSM301351     Jun 27 2008      Aug 28 2018  RNA
+    ## GSM301352     Jun 27 2008      Aug 28 2018  RNA
+    ## GSM301353     Jun 27 2008      Aug 28 2018  RNA
+
+# Vignettes
+
+For more details overview, please checkout the vignette:
+
+- [Hughes2009: Tutorial and Data
+  Processing](https://altintasali.github.io/Hughes2009/articles/Hughes2009-tutorial.html)
 
 # Full Documentation
 

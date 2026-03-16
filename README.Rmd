@@ -3,8 +3,10 @@ output: github_document
 ---
 
 # Hughes2009: Circadian Liver Transcriptome
-
+<!-- badges: start -->
 [![Documentation](https://img.shields.io/badge/docs-pkgdown-blue.svg)](https://altintasali.github.io/Hughes2009/)
+[![R-CMD-check](https://github.com/altintasali/Hughes2009/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/altintasali/Hughes2009/actions/workflows/R-CMD-check.yaml)
+<!-- badges: end -->
 
 The `Hughes2009` package provides processed liver transcriptome data from the Hughes et al. (2009) study on circadian rhythms. It contains normalized expression data and gene-level summaries, designed for testing circadian analysis workflows and co-expression network construction.
 
@@ -34,12 +36,28 @@ data(eset)
 show(eset)
 ```
 
+```{r glimpse_mat}
+# Extract expression matrix
+expression_matrix <- exprs(eset)
+
+# Print first 6 rows and columns
+print(expression_matrix[1:6, 1:6])
+```
+
+```{r glimpse_meta}
+# Extract metadata
+meta <- pData(eset)
+
+# Print first 6 rows and columns
+print(meta[1:6, 1:6])
+```
+
+
 # Vignettes
 
-```{r vig, eval=FALSE}
-# View the vignette
-browseVignettes("Hughes2009")
-```
+For more details overview, please checkout the vignette: 
+
+- [Hughes2009: Tutorial and Data Processing](https://altintasali.github.io/Hughes2009/articles/Hughes2009-tutorial.html)
 
 # Full Documentation
 [Read the full documentation and tutorials online](https://altintasali.github.io/Hughes2009/)
