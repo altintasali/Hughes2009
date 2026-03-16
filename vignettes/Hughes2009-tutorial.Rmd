@@ -1,0 +1,78 @@
+---
+title: "Hughes2009: Tutorial and Data Processing"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Hughes2009: Tutorial and Data Processing}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.width = 7,
+  fig.height = 5,
+  warning = FALSE,
+  message = FALSE
+)
+
+# Load necessary libraries
+library(Hughes2009)
+library(Biobase)
+library(ggplot2)
+library(limma)
+```
+
+# Installation
+```{r install}
+if (!require("pacman")) install.packages("pacman")
+pacman::p_load("devtools")
+devtools::install_github("your-username/Hughes2009")
+```
+
+# Quality Control (QC)
+
+First, we load the raw eset object and perform initial quality checks to ensure data integrity.
+
+## Boxplots and Density Plots
+
+Visualizing expression distributions helps identify outliers or normalization issues.
+```{r qc1}
+data(eset)
+
+# Boxplot of sample distributions
+boxplot(exprs(eset), main="Sample Expression Distributions")
+
+# Density plot
+plot(density(exprs(eset)), main="Density of Normalized Data", 
+     xlab="Expression Intensity", col="darkred")
+```
+
+```{r qc2}
+limma::plotMD(exprs(eset),column = 1)
+```
+
+# Filtering
+
+Probes with low expression or inconsistent signal (MAS5 "Absent" calls) can introduce noise. We filter the dataset to retain only high-quality, reliable probes.
+
+```{r filtering}
+# Filter for probes present in at least 20 samples
+eset_filt <- filter_mas5(eset, min_present = 20)
+
+cat(sprintf("Original number of probes: %d\n", nrow(eset)))
+cat(sprintf("Probes remaining after filtering: %d\n", nrow(eset_filt)))
+```
+
+# Collapsing by Gene Name
+
+Since multiple probes may target the same gene, we collapse the probe-level data to the gene level using the WGCNA collapseRows function (MaxMean method).
+
+```{r collapse_rows}
+# Collapse probes to unique gene symbols
+eset_gene <- collapse_eset(eset_filt, method = "MaxMean")
+
+# Inspect the final object
+show(eset_gene)
+```

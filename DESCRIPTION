@@ -1,0 +1,28 @@
+Package: Hughes2009
+Title: Circadian Microarray Data from Hughes et al. 2009
+Version: 0.0.1
+Authors@R: 
+    person("Ali", "Altıntaş", , "altintas.ali@gmail.com", role = c("aut", "cre"))
+Description: Preprocessed circadian liver transcriptome data (GSE11923) 
+    with utility functions for filtering and collapsing probes to gene symbols.
+License: MIT + file LICENSE
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.3
+Depends: R (>= 4.0)
+LazyData: true
+LazyDataCompression: xz
+Imports: 
+    pacman,
+    Biobase,
+    WGCNA,
+    ggplot2,
+    reshape2
+Suggests: 
+    GEOquery,
+    gcrma,
+    affy,
+    mouse4302.db,
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
