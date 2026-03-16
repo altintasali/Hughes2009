@@ -53,7 +53,8 @@
   <main id="main" class="col-md-9"><div class="section level1">
 <div class="page-header"><h1 id="hughes2009-circadian-liver-transcriptome">Hughes2009: Circadian Liver Transcriptome<a class="anchor" aria-label="anchor" href="#hughes2009-circadian-liver-transcriptome"></a>
 </h1></div>
-<p><a href="https://altintasali.github.io/Hughes2009/"><img src="https://img.shields.io/badge/docs-pkgdown-blue.svg" alt="Documentation"></a></p>
+<!-- badges: start -->
+
 <p>The <code>Hughes2009</code> package provides processed liver transcriptome data from the Hughes et al. (2009) study on circadian rhythms. It contains normalized expression data and gene-level summaries, designed for testing circadian analysis workflows and co-expression network construction.</p>
 </div>
 <div class="section level1">
@@ -61,8 +62,8 @@
 </h1>
 <p>You can install the development version of <code>Hughes2009</code> from GitHub:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"devtools"</span><span class="op">)</span></span>
-<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"altintasali/Hughes2009"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"pak"</span><span class="op">)</span></span>
+<span><span class="fu">pak</span><span class="fu">::</span><span class="fu"><a href="https://pak.r-lib.org/reference/pak.html" class="external-link">pak</a></span><span class="op">(</span><span class="st">"altintasali/Hughes2009"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level1">
 <h1 id="quick-start">Quick Start<a class="anchor" aria-label="anchor" href="#quick-start"></a>
@@ -96,13 +97,54 @@
 <span id="cb4-17"><a href="#cb4-17" tabindex="-1"></a><span class="do">##   fvarMetadata: labelDescription</span></span>
 <span id="cb4-18"><a href="#cb4-18" tabindex="-1"></a><span class="do">## experimentData: use 'experimentData(object)'</span></span>
 <span id="cb4-19"><a href="#cb4-19" tabindex="-1"></a><span class="do">## Annotation: mouse4302</span></span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Extract expression matrix</span></span>
+<span><span class="va">expression_matrix</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/Biobase/man/exprs.html" class="external-link">exprs</a></span><span class="op">(</span><span class="va">eset</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Print first 6 rows and columns</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">expression_matrix</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">6</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">6</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="do">##              GSM301348.CEL.gz GSM301349.CEL.gz GSM301350.CEL.gz</span></span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a><span class="do">## 1415670_at          10.047478        10.144396        10.032522</span></span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a><span class="do">## 1415671_at          10.742481        10.572902        10.678695</span></span>
+<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a><span class="do">## 1415672_at          11.134648        11.113839        11.060911</span></span>
+<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a><span class="do">## 1415673_at           8.123238         8.375692         8.467279</span></span>
+<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a><span class="do">## 1415674_a_at         8.814808         8.788226         8.699853</span></span>
+<span id="cb6-7"><a href="#cb6-7" tabindex="-1"></a><span class="do">## 1415675_at           7.563833         7.303640         7.322527</span></span>
+<span id="cb6-8"><a href="#cb6-8" tabindex="-1"></a><span class="do">##              GSM301351.CEL.gz GSM301352.CEL.gz GSM301353.CEL.gz</span></span>
+<span id="cb6-9"><a href="#cb6-9" tabindex="-1"></a><span class="do">## 1415670_at           9.804604         9.990287         9.682311</span></span>
+<span id="cb6-10"><a href="#cb6-10" tabindex="-1"></a><span class="do">## 1415671_at          10.648379        10.714002        10.591531</span></span>
+<span id="cb6-11"><a href="#cb6-11" tabindex="-1"></a><span class="do">## 1415672_at          11.280906        11.074163        11.186339</span></span>
+<span id="cb6-12"><a href="#cb6-12" tabindex="-1"></a><span class="do">## 1415673_at           8.129796         8.236522         8.042468</span></span>
+<span id="cb6-13"><a href="#cb6-13" tabindex="-1"></a><span class="do">## 1415674_a_at         8.768019         8.587714         8.366756</span></span>
+<span id="cb6-14"><a href="#cb6-14" tabindex="-1"></a><span class="do">## 1415675_at           7.430643         7.668505         7.474612</span></span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Extract metadata</span></span>
+<span><span class="va">meta</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/Biobase/man/phenoData.html" class="external-link">pData</a></span><span class="op">(</span><span class="va">eset</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Print first 6 rows and columns</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">meta</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">6</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">6</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="do">##                                  title geo_accession                status</span></span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a><span class="do">## GSM301348 Circadian time 18 Liver_CT18     GSM301348 Public on Oct 03 2008</span></span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a><span class="do">## GSM301349 Circadian time 19 Liver_CT19     GSM301349 Public on Oct 03 2008</span></span>
+<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a><span class="do">## GSM301350 Circadian time 20 Liver_CT20     GSM301350 Public on Oct 03 2008</span></span>
+<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a><span class="do">## GSM301351 Circadian time 21 Liver_CT21     GSM301351 Public on Oct 03 2008</span></span>
+<span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a><span class="do">## GSM301352 Circadian time 22 Liver_CT22     GSM301352 Public on Oct 03 2008</span></span>
+<span id="cb8-7"><a href="#cb8-7" tabindex="-1"></a><span class="do">## GSM301353 Circadian time 23 Liver_CT23     GSM301353 Public on Oct 03 2008</span></span>
+<span id="cb8-8"><a href="#cb8-8" tabindex="-1"></a><span class="do">##           submission_date last_update_date type</span></span>
+<span id="cb8-9"><a href="#cb8-9" tabindex="-1"></a><span class="do">## GSM301348     Jun 27 2008      Aug 28 2018  RNA</span></span>
+<span id="cb8-10"><a href="#cb8-10" tabindex="-1"></a><span class="do">## GSM301349     Jun 27 2008      Aug 28 2018  RNA</span></span>
+<span id="cb8-11"><a href="#cb8-11" tabindex="-1"></a><span class="do">## GSM301350     Jun 27 2008      Aug 28 2018  RNA</span></span>
+<span id="cb8-12"><a href="#cb8-12" tabindex="-1"></a><span class="do">## GSM301351     Jun 27 2008      Aug 28 2018  RNA</span></span>
+<span id="cb8-13"><a href="#cb8-13" tabindex="-1"></a><span class="do">## GSM301352     Jun 27 2008      Aug 28 2018  RNA</span></span>
+<span id="cb8-14"><a href="#cb8-14" tabindex="-1"></a><span class="do">## GSM301353     Jun 27 2008      Aug 28 2018  RNA</span></span></code></pre></div>
 </div>
 <div class="section level1">
 <h1 id="vignettes">Vignettes<a class="anchor" aria-label="anchor" href="#vignettes"></a>
 </h1>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># View the vignette</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/browseVignettes.html" class="external-link">browseVignettes</a></span><span class="op">(</span><span class="st">"Hughes2009"</span><span class="op">)</span></span></code></pre></div>
+<p>For more details overview, please checkout the vignette:</p>
+<ul>
+<li><a href="https://altintasali.github.io/Hughes2009/articles/Hughes2009-tutorial.html">Hughes2009: Tutorial and Data Processing</a></li>
+</ul>
 </div>
 <div class="section level1">
 <h1 id="full-documentation">Full Documentation<a class="anchor" aria-label="anchor" href="#full-documentation"></a>
@@ -133,7 +175,13 @@
 </ul>
 </div>
 
-
+<div class="dev-status">
+<h2 data-toc-skip>Dev status</h2>
+<ul class="list-unstyled">
+<li><a href="https://altintasali.github.io/Hughes2009/"><img src="https://img.shields.io/badge/docs-pkgdown-blue.svg" alt="Documentation"></a></li>
+<li><a href="https://github.com/altintasali/Hughes2009/actions/workflows/R-CMD-check.yaml" class="external-link"><img src="https://github.com/altintasali/Hughes2009/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check"></a></li>
+</ul>
+</div>
 
   </aside>
 </div>

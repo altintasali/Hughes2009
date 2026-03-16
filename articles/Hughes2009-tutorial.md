@@ -3,9 +3,9 @@
 ## Installation
 
 ``` r
-# Install via devtools
-if (!requireNamespace("devtools", quietly = TRUE)) install.packages("devtools")
-devtools::install_github("altintasali/Hughes2009")
+# Install via pak
+if (!requireNamespace("pak", quietly = TRUE)) install.packages("pak")
+pak::pak("altintasali/Hughes2009")
 ```
 
 ## Raw Expression Data
