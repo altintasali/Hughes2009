@@ -108,7 +108,7 @@ print(meta[1:6, 1:6])
 
 # Vignettes
 
-For more details overview, please checkout the vignette:
+For more detailed overview, please checkout the vignette:
 
 - [Hughes2009: Tutorial and Data
   Processing](https://altintasali.github.io/Hughes2009/articles/Hughes2009-tutorial.html)
